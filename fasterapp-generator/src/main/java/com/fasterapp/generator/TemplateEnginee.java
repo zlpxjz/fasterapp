@@ -21,7 +21,7 @@ public class TemplateEnginee {
         String javadir = classMetaData.getBasePath() + "/src/main/java/" + classMetaData.getBasePackage().replaceAll("[.]","/") + File.separator;
         String mapperDir = javadir; //context.get("basePath").toString() + "/src/main/resources" +  File.separator;
         String scriptDir = classMetaData.getBasePath()  + File.separator;
-        String fullPath = null;
+        String fullPath;
 
         File fileDir = null;
         for(int index = 0; index < templates.length; index++) {

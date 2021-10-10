@@ -32,27 +32,48 @@ public class CodeGenerator extends AbstractMojo {
 
 	@Override
 	public void  execute()  throws MojoExecutionException,MojoFailureException {
+		String modelClass = System.getProperty("modelClass");
+		if(modelClass == null || "".equalsIgnoreCase(modelClass.trim())){
+			throw new MojoExecutionException("Missing modelClass parameters.");
+		}
+
+		String[] codeTypes = null;
+		String codeType = System.getProperty("codeType");
+		if(codeType != null && ! "".equalsIgnoreCase(codeType)){
+			codeTypes = codeType.split(",");
+		}
+
+		ClassMetaData cmd = new ClassMetaData();
 		try {
-			String modelName = System.getProperty("modelName");
-			String types = System.getProperty("types");
-
-			getLog().info("Begin generating code........");
-
-			modelName = "com.fasterapp.modules.excel.apis.ExcelApi";
-
-			Class clazz = this.getClassLoader(project).loadClass(modelName);
+			Class clazz = this.getClassLoader(project).loadClass(modelClass);
 			getLog().info(clazz.getName());
 
-			ClassMetaData cmd = new ClassMetaData();
 			cmd.setBasePath(getModuleSourcePath(project));
-
-			String sPackage = clazz.getPackage().getName();
-			cmd.setBasePackage(sPackage.substring(0, sPackage.lastIndexOf(".")));
-
 			parseModelClass(clazz, cmd);
-			TemplateEnginee.generate(cmd);
+		}catch(Exception exc) {
+			throw new MojoExecutionException("Exception raised when parsing model class:", exc);
+		}
+
+		try{
+			this.generator(cmd, codeTypes);
 		}catch(Exception exc){
 			throw new MojoExecutionException("Exception raised when generating code:", exc);
+		}
+	}
+
+	/**
+	 * 根据Model元数据生成代码
+	 * @param cmd
+	 * @param codeTypes
+	 * @throws Exception
+	 */
+	private void generator(ClassMetaData cmd, String[] codeTypes) throws Exception{
+		if(codeTypes != null && codeTypes.length == 1){
+			if(codeTypes[0].equalsIgnoreCase("mapper.xml")){
+				StatementTemplateEnginee.generate(cmd);
+			}
+		}else {
+			TemplateEnginee.generate(cmd);
 		}
 	}
 
@@ -71,6 +92,9 @@ public class CodeGenerator extends AbstractMojo {
 		Table tableAnnotation = (Table)clazz.getAnnotation(Table.class);
 		cmd.setTable(tableAnnotation.name());
 
+		String sPackage = clazz.getPackage().getName();
+		cmd.setBasePackage(sPackage.substring(0, sPackage.lastIndexOf(".")));
+
 		List<Field> fields = getAllFields(clazz);
 		cmd.setFields(parseModelClassFields(fields));
 
@@ -78,7 +102,6 @@ public class CodeGenerator extends AbstractMojo {
 		String pkType = p.getActualTypeArguments()[0].getTypeName();
 		cmd.setPkFullType(pkType);
 		cmd.setPkType(pkType.substring(pkType.lastIndexOf(".") + 1));
-
 	}
 
 	/**
@@ -178,6 +201,7 @@ public class CodeGenerator extends AbstractMojo {
 			return this.getClass().getClassLoader();
 		}
 	}
+
 
 	public static void main(String [] args) throws Exception{
 		CodeGenerator generator = new CodeGenerator();
