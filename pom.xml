@@ -11,7 +11,7 @@
     <modules>
         <module>fasterapp-base</module>
         <module>fasterapp-modules</module>
-        <module>fasterapp-generator</module>
+        <!--<module>fasterapp-generator</module>-->
     </modules>
 
     <parent>
@@ -167,5 +167,21 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>com.fasterapp</groupId>
+                <artifactId>fasterapp-generator</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>code-generator</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

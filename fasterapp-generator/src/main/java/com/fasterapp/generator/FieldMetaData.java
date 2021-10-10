@@ -7,7 +7,7 @@ public class FieldMetaData implements Serializable {
     private String javaType;
     private String columnName;
     private String columnDefinition;
-    private boolean key;
+    private boolean key = false;
     private boolean auto;
     private int length;
     private int precious;
