@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 @Service("QueryService")
-@Transactional(readOnly = true)
 @Slf4j
+@Transactional(readOnly = true)
 public class QueryServiceImpl implements IQueryService {
     @Autowired
     private IQueryRegisterService queryRegisterService;

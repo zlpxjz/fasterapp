@@ -9,8 +9,10 @@ public class ClassMetaData {
     private String basePath;
     private String table;
     private String entity;
+    private String model;
     private String pkType;
     private String pkFullType;
+    private Class<?> pkClass;
     private String pkFieldImport;
     private List<FieldMetaData> fields;
 
@@ -77,6 +79,14 @@ public class ClassMetaData {
         this.entity = entity;
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     public String getPkType() {
         return pkType;
     }
@@ -99,6 +109,14 @@ public class ClassMetaData {
 
     public void setPkFieldImport(String pkFieldImport) {
         this.pkFieldImport = pkFieldImport;
+    }
+
+    public Class<?> getPkClass() {
+        return pkClass;
+    }
+
+    public void setPkClass(Class<?> pkClass) {
+        this.pkClass = pkClass;
     }
 
     public String getBaseColumnList(){

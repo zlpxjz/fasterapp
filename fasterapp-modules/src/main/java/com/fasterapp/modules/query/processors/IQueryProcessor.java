@@ -9,6 +9,8 @@ import java.util.Map;
  * Created by Tony on 2021/9/3.
  */
 public interface IQueryProcessor {
+	boolean isSupport() throws Exception;
+
 	/**
 	 * 参数处理
 	 * @param parameters

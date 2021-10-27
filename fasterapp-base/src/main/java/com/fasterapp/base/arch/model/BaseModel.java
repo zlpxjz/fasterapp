@@ -39,7 +39,7 @@ public class BaseModel<K extends Serializable>  implements Serializable {
 	@Getter @Setter private Timestamp updatedDate;
 
 	@JsonIgnore
-	@Column(name = "is_deleted", length = 1 , columnDefinition = "char(1) default 'n' not null comment 'Y/N'")
+	@Column(name = "is_deleted", length = 1 , columnDefinition = "char(1) default 'N' not null comment 'Y/N'")
 	@Getter @Setter private String deleted = "N";
 
 	@JsonIgnore
