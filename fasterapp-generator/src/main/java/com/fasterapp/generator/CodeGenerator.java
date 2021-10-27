@@ -1,5 +1,6 @@
 package com.fasterapp.generator;
 
+import com.fasterapp.demo.models.DemoModel;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -81,33 +82,6 @@ public class CodeGenerator extends AbstractMojo {
 
 	/**
 	 *
-	 * @param classLoader
-	 * @param modelClass
-	 * @return
-	 * @throws Exception
-	 */
-	protected Class<?> loadClass(ClassLoader classLoader, String modelClass) throws Exception{
-		return classLoader.loadClass(modelClass);
-	}
-
-	/**
-	 * 根据Model元数据生成代码
-	 * @param cmd
-	 * @param codeTypes
-	 * @throws Exception
-	 */
-	private void generator(ClassMetaData cmd, String[] codeTypes) throws Exception{
-		if(codeTypes != null && codeTypes.length == 1){
-			if(codeTypes[0].equalsIgnoreCase("mapper.xml")){
-				StatementTemplateEnginee.generate(getLog(), cmd);
-			}
-		}else {
-			TemplateEnginee.generate(cmd);
-		}
-	}
-
-	/**
-	 *
 	 * @param clazz
 	 * @param cmd
 	 * @throws Exception
@@ -138,7 +112,6 @@ public class CodeGenerator extends AbstractMojo {
 		List<Field> fields = getAllFields(clazz);
 		cmd.setFields(parseModelClassFields(cmd, fields));
 	}
-
 	/**
 	 *
 	 * @param clazz
@@ -171,6 +144,34 @@ public class CodeGenerator extends AbstractMojo {
 		}
 
 		return fields;
+	}
+
+	/**
+	 *
+	 *
+	 * @param classLoader
+	 * @param modelClass
+	 * @return
+	 * @throws Exception
+	 */
+	protected Class<?> loadClass(ClassLoader classLoader, String modelClass) throws Exception{
+		return classLoader.loadClass(modelClass);
+	}
+
+	/**
+	 * 根据Model元数据生成代码
+	 * @param cmd
+	 * @param codeTypes
+	 * @throws Exception
+	 */
+	private void generator(ClassMetaData cmd, String[] codeTypes) throws Exception{
+		if(codeTypes != null && codeTypes.length == 1){
+			if(codeTypes[0].equalsIgnoreCase("mapper.xml")){
+				StatementTemplateEnginee.generate(getLog(), cmd);
+			}
+		}else {
+			TemplateEnginee.generate(cmd);
+		}
 	}
 
 	/**
@@ -278,5 +279,23 @@ public class CodeGenerator extends AbstractMojo {
 			e.printStackTrace();
 			return this.getClass().getClassLoader();
 		}
+	}
+
+
+	public static void main(String [] args) throws Exception{
+		CodeGenerator generator = new CodeGenerator();
+
+		ClassMetaData cmd = new ClassMetaData();
+		Class clazz = DemoModel.class;
+
+		generator.parseModelClass(clazz, cmd);
+
+		cmd.setBasePath("/Users/tony/workspace/fasterapp/fasterapp-generator");
+
+		String sPackage = clazz.getPackage().getName();
+		cmd.setBasePackage(sPackage.substring(0, sPackage.lastIndexOf(".")));
+		TemplateEnginee.generate(cmd);
+
+		System.out.println();
 	}
 }

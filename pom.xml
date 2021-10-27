@@ -168,7 +168,11 @@
             </resource>
         </resources>
 
+<<<<<<< HEAD
         <!--<plugins>
+=======
+        <plugins>
+>>>>>>> 843820fb808b73557f0bb860763cf27bda698f2b
             <plugin>
                 <groupId>com.fasterapp</groupId>
                 <artifactId>fasterapp-generator</artifactId>
@@ -182,6 +186,10 @@
                     </execution>
                 </executions>
             </plugin>
+<<<<<<< HEAD
         </plugins>-->
+=======
+        </plugins>
+>>>>>>> 843820fb808b73557f0bb860763cf27bda698f2b
     </build>
 </project>
