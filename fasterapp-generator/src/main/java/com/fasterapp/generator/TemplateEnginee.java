@@ -10,8 +10,16 @@ import java.text.MessageFormat;
 
 public class TemplateEnginee {
     public static void generate(ClassMetaData classMetaData) throws Exception{
-        String[] templates = new String[]{"api.java.ftl","mapper.java.ftl","service.java.ftl","serviceImpl.java.ftl","mapper.xml.ftl","script.sql.ftl"};
-        String[] fileNames = new String[]{"apis"+File.separator+"{0}Api.java","mappers"+File.separator+"{0}Mapper.java","services"+File.separator+"I{0}Service.java","services"+File.separator+"impl"+File.separator+"{0}ServiceImpl.java","mappers"+File.separator+"{0}Mapper.xml","scripts"+File.separator+"{0}.sql"};
+        String[] templates = new String[]{"api.java.ftl","dto.java.ftl","convertor.java.ftl","mapper.java.ftl","service.java.ftl","serviceImpl.java.ftl","mapper.xml.ftl","script.sql.ftl"};
+        String[] fileNames = new String[]{
+            "apis"+File.separator+"{0}Api.java",
+            "dtos"+File.separator+"{0}Dto.java",
+            "dtos"+File.separator+"convertors"+File.separator+"{0}Convertor.java",
+            "mappers"+File.separator+"{0}Mapper.java",
+            "services"+File.separator+"I{0}Service.java",
+            "services"+File.separator+"impl"+File.separator+"{0}ServiceImpl.java",
+            "mappers"+File.separator+"{0}Mapper.xml",
+            "scripts"+File.separator+"{0}.sql"};
         //通过Freemarker的Configuration读取相应的ftl
         Configuration configuration = new Configuration();//这里是对应的你使用jar包的版本号：<version>2.3.23</version>
 

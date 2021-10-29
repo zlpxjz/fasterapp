@@ -167,29 +167,5 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
-
-<<<<<<< HEAD
-        <!--<plugins>
-=======
-        <plugins>
->>>>>>> 843820fb808b73557f0bb860763cf27bda698f2b
-            <plugin>
-                <groupId>com.fasterapp</groupId>
-                <artifactId>fasterapp-generator</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>code-generator</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-<<<<<<< HEAD
-        </plugins>-->
-=======
-        </plugins>
->>>>>>> 843820fb808b73557f0bb860763cf27bda698f2b
     </build>
 </project>

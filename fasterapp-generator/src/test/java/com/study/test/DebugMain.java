@@ -1,14 +1,14 @@
 package com.study.test;
 
 import com.fasterapp.generator.ClassMetaData;
-import com.fasterapp.generator.CodeGenerator;
+import com.fasterapp.generator.FullGenerator;
 
 import java.io.File;
 
 /**
  * Created by Tony on 2021/10/22.
  */
-public class DebugMain extends CodeGenerator{
+public class DebugMain extends FullGenerator {
 
 	public static  void main(String[] args) throws Exception{
 		File file = new File("d:/tmp/1.pdf");

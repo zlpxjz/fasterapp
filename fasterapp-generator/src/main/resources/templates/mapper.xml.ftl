@@ -20,7 +20,7 @@
           This element is automatically generated when running, do not modify.
         -->
         <#list fields as field>
-        ${table}.${field.columnName} <#if field_has_next>,</#if>
+        ${entity?uncap_first}.${field.columnName} <#if field_has_next>,</#if>
         </#list>
     </sql>
 
@@ -29,9 +29,9 @@
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
         -->
-        SELECT <include refid="Base_Column_List"/>
-        FROM ${table}
-        WHERE STATUS = '1'
+        select <include refid="Base_Column_List"/>
+        from ${table} ${entity?uncap_first}
+        where is_deleted = 'N'
     </select>
 
     <select id="selectByPrimaryKey" parameterType="${pkFullType}" resultMap="BaseResultMap">
@@ -39,11 +39,11 @@
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
         -->
-        SELECT <include refid="Base_Column_List"/>
-        FROM ${table}
-        WHERE STATUS = '1'
+        select <include refid="Base_Column_List"/>
+        from ${table} ${entity?uncap_first}
+        where is_deleted = 'N'
         <#list pkFields as field>
-         AND ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
+         and ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
         </#list>
     </select>
 
@@ -52,12 +52,12 @@
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
         -->
-        UPDATE ${table} set STATUS = '0'
+        update ${table} set is_deleted = 'Y'
         <#list pkFields as field>
         <#if field_index = 0>
-        WHERE ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
+        where ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
         <#else>
-        AND ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
+        and ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
         </#if>
         </#list>
     </delete>
@@ -67,7 +67,7 @@
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
         -->
-        INSERT INTO  ${table}
+        insert into  ${table}
         <trim prefix="(" suffix=")" suffixOverrides=",">
         <#list fields as field>
             ${field.columnName},
@@ -85,7 +85,7 @@
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
         -->
-        UPDATE  ${table} set
+        update  ${table} set
         <trim suffix=" " suffixOverrides=",">
         <#list nonPkFields as field>
         <if test="_parameter.containsKey('${field.name}')">
@@ -95,9 +95,9 @@
         </trim>
         <#list pkFields as field>
         <#if field_index = 0>
-        WHERE ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
+        where ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
         <#else>
-        AND ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
+        and ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
         </#if>
         </#list>
     </update>
@@ -107,7 +107,7 @@
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
         -->
-        UPDATE  ${table} set
+        update  ${table} set
         <trim suffix=" " suffixOverrides=",">
         <#list nonPkFields as field>
             ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}},
@@ -115,9 +115,9 @@
         </trim>
         <#list pkFields as field>
         <#if field_index = 0>
-        WHERE ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
+        where ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
         <#else>
-        AND ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
+        and ${field.columnName} = <#noparse>#{</#noparse>${field.name}, jdbcType=${field.jdbcType}}
         </#if>
         </#list>
     </update>
