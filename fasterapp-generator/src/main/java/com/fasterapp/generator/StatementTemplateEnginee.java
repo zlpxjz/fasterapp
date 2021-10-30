@@ -10,7 +10,7 @@ import java.text.MessageFormat;
 public class StatementTemplateEnginee {
     public static void generate(Log logger, ClassMetaData classMetaData) throws Exception{
         String ftlName = "mapper-option.xml.ftl";
-        String fileName = "mappers\\{0}Mapper.xml";
+        String fileName = "mappers" + File.separator + "{0}Mapper.xml";
 
         //通过Freemarker的Configuration读取相应的ftl
         Configuration configuration = new Configuration();//这里是对应的你使用jar包的版本号：<version>2.3.23</version>

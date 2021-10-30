@@ -50,7 +50,8 @@ public class SecurityUtil {
 	 * @return
 	 */
 	public static boolean checkStrength(String password) {
-		if (password.matches(".*[a-z]{1,}.*") && password.matches(".*[A-Z]{1,}.*") && password.matches(".*\\d{1,}.*") && password.matches(".*[~!@#$%^&*\\.?]{1,}.*")) {
+		if(password.matches(".*[a-z]{1,}.*") || password.matches(".*[A-Z]{1,}.*") && password.matches(".*\\d{1,}.*")){
+		//if (password.matches(".*[a-z]{1,}.*") && password.matches(".*[A-Z]{1,}.*") && password.matches(".*\\d{1,}.*") && password.matches(".*[~!@#$%^&*\\.?]{1,}.*")) {
 			return true;
 		}
 		return false;

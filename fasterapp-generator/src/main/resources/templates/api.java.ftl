@@ -27,14 +27,14 @@ public class ${entity?cap_first}Api extends BaseApi {
 
     @ApiOperation(value = "根据id获取信息", notes = "查询数据库中某个信息")
     @GetMapping(path="/{id}/get")
-    public ApiResponse get(@PathVariable("id") Integer Id) throws Exception{
+    public ApiResponse get(@PathVariable("id") ${pkType} Id) throws Exception{
         ${entity?cap_first}Model model = ${entity?uncap_first}Service.getOne(Id);
         return ApiResponse.success(model);
     }
 
     @ApiOperation(value = "删除指定数据", notes = "删除指定数据")
     @GetMapping(path="/{id}/delete")
-    public ApiResponse delete(@PathVariable("id") Integer id) throws Exception{
+    public ApiResponse delete(@PathVariable("id") ${pkType} id) throws Exception{
         ${entity?uncap_first}Service.delete(id);
         return ApiResponse.success().setMessage("删除成功。");
     }
