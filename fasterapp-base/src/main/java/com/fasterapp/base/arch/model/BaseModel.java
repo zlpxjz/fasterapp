@@ -17,10 +17,17 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class BaseModel<K extends Serializable>  implements Serializable {
+	private boolean _insert = false;
+
 	@Id
 	@Getter
 	@Setter
 	private K id;
+
+	public BaseModel(K id){
+		this.id = id;
+		this._insert = true;
+	}
 
 	@JsonIgnore
 	@Column(name = "created_by" , columnDefinition = "varchar(32) default null comment '创建用户'")
@@ -42,8 +49,9 @@ public class BaseModel<K extends Serializable>  implements Serializable {
 	@Column(name = "is_deleted", length = 1 , columnDefinition = "char(1) default 'N' not null comment 'Y/N'")
 	@Getter @Setter private String deleted = "N";
 
+
 	@JsonIgnore
 	public boolean isInsert() {
-		return id == null;
+		return id == null || _insert;
 	}
 }

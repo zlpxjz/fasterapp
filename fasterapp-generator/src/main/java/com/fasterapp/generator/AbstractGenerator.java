@@ -163,7 +163,10 @@ public abstract class AbstractGenerator extends AbstractMojo {
 			if(field.isAnnotationPresent(Id.class)){
 				fieldMetaDataList.addAll(getKeyFields(cmd, field));
 			}else {
-				fieldMetaDataList.add(getFieldMetaData(field));
+				FieldMetaData metaData = this.getFieldMetaData(field);
+				if(metaData != null) {
+					fieldMetaDataList.add(metaData);
+				}
 			}
 		}
 		return fieldMetaDataList;
@@ -176,17 +179,22 @@ public abstract class AbstractGenerator extends AbstractMojo {
 	 * @throws Exception
 	 */
 	private FieldMetaData getFieldMetaData(Field field) throws Exception{
-		FieldMetaData metaData = new FieldMetaData();
-
 		Column column = field.getAnnotation(Column.class);
-		metaData.setName(field.getName());
-		metaData.setColumnDefinition(column.columnDefinition());
-		metaData.setColumnName(column.name());
-		metaData.setJavaType(field.getType().getName());
-		metaData.setLength(column.length());
-		metaData.setPrecious(column.precision());
+		if(column == null){
+			getLog().warn("Field=" + field.getName() + " has no column annotation");
+			return null;
+		}else {
+			FieldMetaData metaData = new FieldMetaData();
 
-		return metaData;
+			metaData.setName(field.getName());
+			metaData.setColumnDefinition(column.columnDefinition());
+			metaData.setColumnName(column.name());
+			metaData.setJavaType(field.getType().getName());
+			metaData.setLength(column.length());
+			metaData.setPrecious(column.precision());
+
+			return metaData;
+		}
 	}
 
 	/**
