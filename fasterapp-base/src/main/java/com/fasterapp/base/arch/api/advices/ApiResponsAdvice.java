@@ -47,7 +47,7 @@ public class ApiResponsAdvice implements ResponseBodyAdvice<Object> {
 
 
 	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ResponseStatus(HttpStatus.OK)
 	public ApiResponse sendErrorResponse_System(Exception exception, HttpServletResponse httpServletResponse){
 		log.error("异常信息", exception);
 
