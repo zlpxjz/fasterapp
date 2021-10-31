@@ -4,26 +4,62 @@ import com.fasterapp.base.AppException;
 import com.fasterapp.base.arch.ApiResponse;
 import com.fasterapp.base.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.persistence.OptimisticLockException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Tony on 2021/9/3.
  */
-@RestControllerAdvice
+@RestControllerAdvice(annotations = RestController.class)
 @Slf4j(topic="ApiExceptionAdvice")
-public class ApiExceptionAdvice {
-	@ExceptionHandler(value = AppException.class)
-	public ApiResponse appExceptionHandler(Exception ex) {
-		log.error("异常信息", ex);
+public class ApiResponsAdvice implements ResponseBodyAdvice<Object> {
+	@Override
+	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+		return true;
+	}
 
-		AppException appException = (AppException) ex;
+	@Override
+	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+		if(body == null){
+			return ApiResponse.success();
+		}
 
-		return ApiResponse.error(appException.getCode(), appException.getMessage());
+		if(body instanceof ApiResponse){
+			return body;
+		}
+
+		return ApiResponse.success(body);
+	}
+
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ApiResponse sendErrorResponse_System(Exception exception, HttpServletResponse httpServletResponse){
+		log.error("异常信息", exception);
+
+		httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+
+		Throwable cause = this.findRootExceptionThrowable(exception);
+		if(cause != null && cause instanceof AppException){
+			AppException appException = (AppException) cause;
+			return ApiResponse.error(appException.getCode(), appException.getMessage());
+		}else {
+			return ApiResponse.error("系统异常，请稍后再试。");
+		}
 	}
 
 	@ExceptionHandler(value = HttpMediaTypeNotAcceptableException.class)
@@ -57,19 +93,6 @@ public class ApiExceptionAdvice {
 	@ExceptionHandler(OptimisticLockException.class)
 	public ApiResponse handleOptimisticLockException(OptimisticLockException e) {
 		return ApiResponse.error("数据并发操作异常，请稍后再提交。");
-	}
-
-	@ExceptionHandler(value = Exception.class)
-	public ApiResponse exceptionHandler(Exception ex) {
-		log.error("异常信息", ex);
-
-		Throwable cause = this.findRootExceptionThrowable(ex);
-		if(cause != null && cause instanceof AppException){
-			AppException appException = (AppException) cause;
-			return ApiResponse.error(appException.getCode(), appException.getMessage());
-		}else {
-			return ApiResponse.error("系统异常，请稍后再试。");
-		}
 	}
 
 	/**

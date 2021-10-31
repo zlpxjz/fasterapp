@@ -1,4 +1,4 @@
-package com.fasterapp.modules.query.mappers;
+package com.fasterapp.modules.query.mapper;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

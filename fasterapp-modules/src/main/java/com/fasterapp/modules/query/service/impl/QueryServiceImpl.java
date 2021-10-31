@@ -1,13 +1,13 @@
-package com.fasterapp.modules.query.services.impl;
+package com.fasterapp.modules.query.service.impl;
 
 import com.fasterapp.base.AppException;
 import com.fasterapp.modules.query.BatchQueryParameter;
 import com.fasterapp.modules.query.QueryParameter;
-import com.fasterapp.modules.query.mappers.IQueryMapper;
-import com.fasterapp.modules.query.mappers.MapperMetaData;
+import com.fasterapp.modules.query.mapper.IQueryMapper;
+import com.fasterapp.modules.query.mapper.MapperMetaData;
 import com.fasterapp.modules.query.processors.IQueryProcessor;
-import com.fasterapp.modules.query.services.IQueryRegisterService;
-import com.fasterapp.modules.query.services.IQueryService;
+import com.fasterapp.modules.query.service.IQueryRegisterService;
+import com.fasterapp.modules.query.service.IQueryService;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

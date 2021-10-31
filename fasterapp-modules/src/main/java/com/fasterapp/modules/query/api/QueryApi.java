@@ -1,11 +1,11 @@
-package com.fasterapp.modules.query.apis;
+package com.fasterapp.modules.query.api;
 
 import com.fasterapp.base.annotations.ApiNoLog;
 import com.fasterapp.base.arch.ApiResponse;
 import com.fasterapp.base.arch.api.BaseApi;
 import com.fasterapp.base.utils.CollectionUtil;
 import com.fasterapp.modules.query.BatchQueryParameter;
-import com.fasterapp.modules.query.services.IQueryService;
+import com.fasterapp.modules.query.service.IQueryService;
 import com.fasterapp.modules.query.PageList;
 import com.fasterapp.modules.query.QueryParameter;
 import com.github.pagehelper.Page;

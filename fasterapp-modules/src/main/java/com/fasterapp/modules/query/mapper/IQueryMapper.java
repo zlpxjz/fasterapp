@@ -1,4 +1,4 @@
-package com.fasterapp.modules.query.mappers;
+package com.fasterapp.modules.query.mapper;
 
 import java.util.List;
 import java.util.Map;

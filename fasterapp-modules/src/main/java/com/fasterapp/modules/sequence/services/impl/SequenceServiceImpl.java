@@ -26,7 +26,7 @@ public class SequenceServiceImpl implements ISequenceService {
     @Override
     public Integer getNextValue(String name, String date) throws Exception {
         BigInteger value = BigInteger.ONE;
-        SequenceModel sequenceModel = sequenceMapper.selectByNameAndPermitAndDate(name,  date);
+        SequenceModel sequenceModel = sequenceMapper.selectByNameAndDate(name,  date);
         if(sequenceModel != null){
             value = sequenceModel.getSeqValue().add(BigInteger.ONE);
             sequenceModel.setSeqValue(value);

@@ -8,7 +8,6 @@
         -->
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="SEQ_NAME" jdbcType="VARCHAR" property="seqName" />
-        <result column="SEQ_PERMIT" jdbcType="VARCHAR" property="seqPermit" />
         <result column="SEQ_DATE" jdbcType="CHAR" property="seqDate" />
         <result column="SEQ_VAL" jdbcType="INTEGER" property="seqValue" />
     </resultMap>

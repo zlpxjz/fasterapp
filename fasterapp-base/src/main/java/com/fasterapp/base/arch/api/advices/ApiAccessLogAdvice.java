@@ -50,7 +50,7 @@ public class ApiAccessLogAdvice {
 
 		//输出HTTP头信息
 		boolean first = true;
-		String loggableHeaders = fasterappProperties.getLogger().getHeaders();
+		String loggableHeaders = FasterappProperties.logger_headers;
 		if (!StringUtil.isNullOrBlank(loggableHeaders)) {
 			sb.append(", Headers={");
 			String[] headers = loggableHeaders.split(",");

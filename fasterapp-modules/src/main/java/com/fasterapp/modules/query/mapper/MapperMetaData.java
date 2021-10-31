@@ -1,4 +1,4 @@
-package com.fasterapp.modules.query.mappers;
+package com.fasterapp.modules.query.mapper;
 
 import com.fasterapp.modules.query.processors.IQueryProcessor;
 import lombok.Getter;

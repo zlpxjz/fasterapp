@@ -1,8 +1,8 @@
-package com.fasterapp.modules.query.services.impl;
+package com.fasterapp.modules.query.service.impl;
 
 import com.fasterapp.base.AppException;
-import com.fasterapp.modules.query.mappers.MapperMetaData;
-import com.fasterapp.modules.query.services.IQueryRegisterService;
+import com.fasterapp.modules.query.mapper.MapperMetaData;
+import com.fasterapp.modules.query.service.IQueryRegisterService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

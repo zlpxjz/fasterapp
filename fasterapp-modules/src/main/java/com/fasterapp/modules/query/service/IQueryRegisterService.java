@@ -1,6 +1,6 @@
-package com.fasterapp.modules.query.services;
+package com.fasterapp.modules.query.service;
 
-import com.fasterapp.modules.query.mappers.MapperMetaData;
+import com.fasterapp.modules.query.mapper.MapperMetaData;
 
 /**
  * 查询注册服务

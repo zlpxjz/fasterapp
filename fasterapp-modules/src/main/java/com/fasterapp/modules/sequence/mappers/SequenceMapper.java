@@ -12,6 +12,6 @@ public interface SequenceMapper extends BaseMapper<Integer, SequenceModel> {
      * @param seDate
      * @return
      */
-    SequenceModel selectByNameAndPermitAndDate(@Param("seqName") String seqName, @Param("seqDate") String seDate);
+    SequenceModel selectByNameAndDate(@Param("seqName") String seqName, @Param("seqDate") String seDate);
 }
 

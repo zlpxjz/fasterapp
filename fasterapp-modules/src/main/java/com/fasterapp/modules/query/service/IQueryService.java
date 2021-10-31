@@ -1,4 +1,4 @@
-package com.fasterapp.modules.query.services;
+package com.fasterapp.modules.query.service;
 
 import com.fasterapp.modules.query.BatchQueryParameter;
 import com.fasterapp.modules.query.QueryParameter;
