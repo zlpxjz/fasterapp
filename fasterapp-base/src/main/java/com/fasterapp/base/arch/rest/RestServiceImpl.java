@@ -1,4 +1,4 @@
-package com.fasterapp.base.arch.connector.rest;
+package com.fasterapp.base.arch.rest;
 
 import com.fasterapp.base.utils.JsonUtil;
 import com.fasterapp.base.utils.StringUtil;
@@ -14,11 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Slf4j
-public class RestConnectorImpl implements IRestConnector {
+@Slf4j(topic = "RestLogger")
+public class RestServiceImpl implements IRestService {
     private RestTemplate restTemplate;
 
-    public RestConnectorImpl(RestTemplate restTemplate) {
+    public RestServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

@@ -1,4 +1,4 @@
-package com.fasterapp.base.arch.connector.rest;
+package com.fasterapp.base.arch.rest;
 
 import org.springframework.core.io.FileSystemResource;
 
@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 系统集成接口
  */
-public interface IRestConnector {
+public interface IRestService {
     /**
      *
      * @param url

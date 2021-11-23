@@ -1,4 +1,4 @@
-package com.fasterapp.base.arch.connector.rest;
+package com.fasterapp.base.arch.rest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,11 +15,11 @@ public class RestConfig {
     private Integer readTimeout;
 
     @Bean("RestConnector")
-    public IRestConnector restConnector(){
+    public IRestService restService(){
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(connectionTimeout*1000);
         requestFactory.setReadTimeout(readTimeout*1000);
         RestTemplate restTemplate = new RestTemplate(requestFactory);
-        return new RestConnectorImpl(restTemplate);
+        return new RestServiceImpl(restTemplate);
     }
 }

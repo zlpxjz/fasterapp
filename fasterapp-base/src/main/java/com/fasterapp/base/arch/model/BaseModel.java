@@ -24,11 +24,6 @@ public class BaseModel<K extends Serializable>  implements Serializable {
 	@Setter
 	private K id;
 
-	public BaseModel(K id){
-		this.id = id;
-		this._insert = true;
-	}
-
 	@JsonIgnore
 	@Column(name = "created_by" , columnDefinition = "varchar(32) default null comment '创建用户'")
 	@Getter @Setter private String createdBy;

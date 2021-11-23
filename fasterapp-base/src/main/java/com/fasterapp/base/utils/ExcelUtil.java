@@ -1,9 +1,13 @@
 package com.fasterapp.base.utils;
 
+import com.fasterapp.base.AppException;
 import org.apache.poi.ss.usermodel.Cell;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
+import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
+import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
 
 /**
  * Created by Tony on 2021/9/2.
@@ -20,14 +24,7 @@ public class ExcelUtil {
 			return null;
 		}
 
-		BigDecimal bd;
-		try{
-			bd = BigDecimal.valueOf(cell.getNumericCellValue());
-		}catch(Exception exc){
-			bd = new BigDecimal(cell.getStringCellValue().trim());
-		}
-
-		return bd.intValue();
+		return getAsDecimal(cell).intValue();
 	}
 
 	/**
@@ -41,14 +38,25 @@ public class ExcelUtil {
 			return null;
 		}
 
-		BigDecimal bd;
-		try{
-			bd = BigDecimal.valueOf(cell.getNumericCellValue());
-		}catch(Exception exc){
-			bd = new BigDecimal(cell.getStringCellValue().trim());
-		}
+		return getAsDecimal(cell).doubleValue();
+	}
 
-		return bd.doubleValue();
+	/**
+	 *
+	 * @param cell
+	 * @return
+	 * @throws Exception
+	 */
+	public static BigDecimal getAsDecimal(Cell cell) throws Exception{
+		int cellType = cell.getCellType();
+		switch(cellType){
+			case CELL_TYPE_NUMERIC:
+				return BigDecimal.valueOf(cell.getNumericCellValue());
+			case CELL_TYPE_STRING:
+				return new BigDecimal(cell.getStringCellValue().trim());
+			default:
+				throw new AppException("无效数据格式。");
+		}
 	}
 
 	/**
@@ -62,10 +70,14 @@ public class ExcelUtil {
 			return null;
 		}
 
-		try{
-			return cell.getDateCellValue();
-		}catch(Exception exc){
-			return DateUtil.parse(cell.getStringCellValue().trim());
+		int cellType = cell.getCellType();
+		switch(cellType){
+			case CELL_TYPE_NUMERIC:
+				return cell.getDateCellValue();
+			case CELL_TYPE_STRING:
+				return DateUtil.parse(cell.getStringCellValue().trim());
+			default:
+				throw new AppException("无效数据格式。");
 		}
 	}
 
