@@ -1,11 +1,11 @@
-package ${basePackage}.mappers;
+package ${basePackage}.mapper;
 
 <#if pkFieldImport?exists>
 import ${pkFieldImport};
 </#if>
-import ${basePackage}.models.${entity?cap_first}Model;
+import ${basePackage}.model.${entity?cap_first}Model;
 
-import com.fasterapp.base.arch.mapper.BaseMapper;
+import com.fasterapp.base.core.mapper.BaseMapper;
 
 public interface ${entity?cap_first}Mapper extends BaseMapper<${pkType}, ${entity?cap_first}Model> {
 }

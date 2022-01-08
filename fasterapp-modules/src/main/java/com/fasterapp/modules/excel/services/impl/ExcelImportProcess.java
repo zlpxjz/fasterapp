@@ -1,6 +1,6 @@
 package com.fasterapp.modules.excel.services.impl;
 
-import com.fasterapp.base.AppException;
+import com.fasterapp.base.exceptions.AppException;
 import com.fasterapp.base.utils.ExcelUtil;
 import com.fasterapp.base.utils.FileUtil;
 import com.fasterapp.base.utils.JsonUtil;

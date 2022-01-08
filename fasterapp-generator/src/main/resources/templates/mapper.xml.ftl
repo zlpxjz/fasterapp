@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${basePackage}.mappers.${entity?cap_first}Mapper">
-    <resultMap id="BaseResultMap" type="${basePackage}.models.${entity?cap_first}Model">
+<mapper namespace="${basePackage}.mapper.${entity?cap_first}Mapper">
+    <resultMap id="BaseResultMap" type="${basePackage}.model.${entity?cap_first}Model">
         <!--
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
@@ -62,7 +62,7 @@
         </#list>
     </delete>
 
-    <insert id="insert" parameterType="${basePackage}.models.${entity?cap_first}Model">
+    <insert id="insert" parameterType="${basePackage}.model.${entity?cap_first}Model">
         <!--
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.
@@ -102,7 +102,7 @@
         </#list>
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="${basePackage}.models.${entity?cap_first}Model">
+    <update id="updateByPrimaryKey" parameterType="${basePackage}.model.${entity?cap_first}Model">
         <!--
           WARNING - @mbggenerated
           This element is automatically generated when running, do not modify.

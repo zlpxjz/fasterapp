@@ -1,7 +1,7 @@
 package com.fasterapp.modules.sequence.mappers;
 
 
-import com.fasterapp.base.arch.mapper.BaseMapper;
+import com.fasterapp.base.core.mapper.BaseMapper;
 import com.fasterapp.modules.sequence.models.SequenceModel;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,6 +1,6 @@
 package com.fasterapp.base.utils;
 
-import com.fasterapp.base.AppException;
+import com.fasterapp.base.exceptions.AppException;
 import org.apache.poi.ss.usermodel.Cell;
 
 import java.math.BigDecimal;
@@ -48,6 +48,10 @@ public class ExcelUtil {
 	 * @throws Exception
 	 */
 	public static BigDecimal getAsDecimal(Cell cell) throws Exception{
+		if(cell == null || cell.getCellType() == Cell.CELL_TYPE_BLANK){
+			return null;
+		}
+		
 		int cellType = cell.getCellType();
 		switch(cellType){
 			case CELL_TYPE_NUMERIC:
@@ -60,7 +64,7 @@ public class ExcelUtil {
 	}
 
 	/**
-	 * 获取单元格的浮点型
+	 * 获取单元格的日期型
 	 * @param cell
 	 * @return
 	 * @throws Exception
@@ -82,7 +86,7 @@ public class ExcelUtil {
 	}
 
 	/**
-	 * 获取单元格的浮点型
+	 * 获取单元格的文本型
 	 * @param cell
 	 * @return
 	 * @throws Exception

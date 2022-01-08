@@ -1,8 +1,8 @@
 package com.fasterapp.modules.query.api;
 
 import com.fasterapp.base.annotations.ApiNoLog;
-import com.fasterapp.base.arch.ApiResponse;
-import com.fasterapp.base.arch.api.BaseApi;
+import com.fasterapp.base.core.api.ApiResponse;
+import com.fasterapp.base.core.api.BaseApi;
 import com.fasterapp.base.utils.CollectionUtil;
 import com.fasterapp.modules.query.BatchQueryParameter;
 import com.fasterapp.modules.query.service.IQueryService;

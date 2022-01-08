@@ -1,6 +1,6 @@
 package com.fasterapp.base.utils;
 
-import com.fasterapp.base.AppException;
+import com.fasterapp.base.exceptions.AppException;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;

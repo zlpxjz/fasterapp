@@ -1,6 +1,6 @@
 package com.fasterapp.modules.query.service.impl;
 
-import com.fasterapp.base.AppException;
+import com.fasterapp.base.exceptions.AppException;
 import com.fasterapp.modules.query.BatchQueryParameter;
 import com.fasterapp.modules.query.QueryParameter;
 import com.fasterapp.modules.query.mapper.IQueryMapper;

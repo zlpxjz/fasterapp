@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fasterapp.admin.mapper.RolePermissionMapper">
+    <resultMap id="BaseResultMap" type="com.fasterapp.admin.model.RolePermissionModel">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+        <result column="permission_id" jdbcType="VARCHAR" property="permissionId" />
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+        <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+        <result column="updated_date" jdbcType="TIMESTAMP" property="updatedDate" />
+        <result column="is_deleted" jdbcType="CHAR" property="deleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        rolePermission.role_id ,
+        rolePermission.permission_id ,
+        rolePermission.id ,
+        rolePermission.created_by ,
+        rolePermission.created_date ,
+        rolePermission.updated_by ,
+        rolePermission.updated_date ,
+        rolePermission.is_deleted 
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        select <include refid="Base_Column_List"/>
+        from t_sys_role_permssion_info rolePermission
+        where is_deleted = 'N'
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        select <include refid="Base_Column_List"/>
+        from t_sys_role_permssion_info rolePermission
+        where is_deleted = 'N'
+         and id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        update t_sys_role_permssion_info set is_deleted = 'Y'
+        where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.fasterapp.admin.model.RolePermissionModel">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        insert into  t_sys_role_permssion_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            role_id,
+            permission_id,
+            id,
+            created_by,
+            created_date,
+            updated_by,
+            updated_date,
+            is_deleted,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{roleId, jdbcType=VARCHAR},
+            #{permissionId, jdbcType=VARCHAR},
+            #{id, jdbcType=VARCHAR},
+            #{createdBy, jdbcType=VARCHAR},
+            #{createdDate, jdbcType=TIMESTAMP},
+            #{updatedBy, jdbcType=VARCHAR},
+            #{updatedDate, jdbcType=TIMESTAMP},
+            #{deleted, jdbcType=CHAR},
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="java.util.Map">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        update  t_sys_role_permssion_info set
+        <trim suffix=" " suffixOverrides=",">
+        <if test="_parameter.containsKey('roleId')">
+        role_id = #{roleId, jdbcType=VARCHAR},
+        </if>
+        <if test="_parameter.containsKey('permissionId')">
+        permission_id = #{permissionId, jdbcType=VARCHAR},
+        </if>
+        <if test="_parameter.containsKey('createdBy')">
+        created_by = #{createdBy, jdbcType=VARCHAR},
+        </if>
+        <if test="_parameter.containsKey('createdDate')">
+        created_date = #{createdDate, jdbcType=TIMESTAMP},
+        </if>
+        <if test="_parameter.containsKey('updatedBy')">
+        updated_by = #{updatedBy, jdbcType=VARCHAR},
+        </if>
+        <if test="_parameter.containsKey('updatedDate')">
+        updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+        </if>
+        <if test="_parameter.containsKey('deleted')">
+        is_deleted = #{deleted, jdbcType=CHAR},
+        </if>
+        </trim>
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.fasterapp.admin.model.RolePermissionModel">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated when running, do not modify.
+        -->
+        update  t_sys_role_permssion_info set
+        <trim suffix=" " suffixOverrides=",">
+            role_id = #{roleId, jdbcType=VARCHAR},
+            permission_id = #{permissionId, jdbcType=VARCHAR},
+            created_by = #{createdBy, jdbcType=VARCHAR},
+            created_date = #{createdDate, jdbcType=TIMESTAMP},
+            updated_by = #{updatedBy, jdbcType=VARCHAR},
+            updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+            is_deleted = #{deleted, jdbcType=CHAR},
+        </trim>
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+</mapper>

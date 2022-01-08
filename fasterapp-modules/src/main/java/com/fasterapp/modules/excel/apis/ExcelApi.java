@@ -1,8 +1,8 @@
 package com.fasterapp.modules.excel.apis;
 
 import com.fasterapp.base.annotations.ApiNoLog;
-import com.fasterapp.base.arch.ApiResponse;
-import com.fasterapp.base.arch.api.BaseApi;
+import com.fasterapp.base.core.api.ApiResponse;
+import com.fasterapp.base.core.api.BaseApi;
 import com.fasterapp.base.utils.ApiUtil;
 import com.fasterapp.base.utils.StringUtil;
 import com.fasterapp.modules.excel.services.IExcelService;

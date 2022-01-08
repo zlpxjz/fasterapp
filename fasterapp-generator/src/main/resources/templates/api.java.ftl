@@ -1,9 +1,9 @@
-package ${basePackage}.apis;
+package ${basePackage}.api;
 
-import ${basePackage}.models.${entity?cap_first}Model;
-import ${basePackage}.services.I${entity?cap_first}Service;
-import com.fasterapp.base.arch.api.BaseApi;
-import com.fasterapp.base.arch.ApiResponse;
+import ${basePackage}.model.${entity?cap_first}Model;
+import ${basePackage}.service.I${entity?cap_first}Service;
+import com.fasterapp.base.core.api.BaseApi;
+import com.fasterapp.base.core.api.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

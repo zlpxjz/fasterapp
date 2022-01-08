@@ -1,15 +1,17 @@
 package com.fasterapp.generator;
 
+import com.fasterapp.base.core.model.BaseModel;
+import com.fasterapp.base.core.model.annotations.Column;
+import com.fasterapp.base.core.model.annotations.Entity;
+import com.fasterapp.base.core.model.annotations.Id;
+import com.fasterapp.base.core.model.annotations.Table;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.File;
+import java.io.FileFilter;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
@@ -27,42 +29,98 @@ public abstract class AbstractGenerator extends AbstractMojo {
 	 */
 	public MavenProject project;
 
+	/**
+	 * @parameter expression="${model}"
+	 * @required
+	 * @readonly
+	 */
+	private String models;
+
 	@Override
 	public void  execute()  throws MojoExecutionException,MojoFailureException {
-		System.out.print("Input Model Class:");
-		Scanner sc = new Scanner(System.in);
-		String modelClass = null;
-		while (true) {
-			modelClass = sc.nextLine();
-			if (modelClass != null && !modelClass.trim().equals("")){
-				break;
+		ClassMetaData cmd = new ClassMetaData();
+		List<String> modelList = new ArrayList<>();
+		if(models.endsWith("*")){
+			modelList.addAll(getModels(models));
+		}else{
+			modelList.add(models);
+		}
+
+		if(modelList.isEmpty()){
+			getLog().warn("No model found to generate code..............");
+			return;
+		}
+
+		ClassLoader clazzLoader = this.getClassLoader(project);
+		for(String modelClass : modelList) {
+			getLog().info("Generating code for model=" + modelClass);
+
+			try {
+				Class clazz = this.loadClass(clazzLoader, modelClass);
+				if(! BaseModel.class.isAssignableFrom(clazz)){
+					continue;
+				}
+				cmd.setModel(clazz.getName());
+				cmd.setBasePath(getModuleSourcePath(project));
+				parseModelClass(clazz, cmd);
+			} catch (Exception exc) {
+				getLog().error("Exception raised when parsing model class:", exc);
+				throw new MojoExecutionException("Exception raised when parsing model class:", exc);
 			}
 
-			System.out.print("Input Model Class:");
-		}
+			try {
+				getLog().info("*************************************************");
+				getLog().info("Project Directory=" + cmd.getBasePath());
+				getLog().info("Model Name=" + cmd.getModel());
+				getLog().info("Entity Name=" + cmd.getEntity());
+				getLog().info("*************************************************");
 
-		ClassMetaData cmd = new ClassMetaData();
+				this.generator(cmd);
+			} catch (Exception exc) {
+				getLog().error("Exception raised when generating code:", exc);
+				throw new MojoExecutionException("Exception raised when generating code:", exc);
+			}
+		}
+	}
+
+	/**
+	 * 获取包下的类文件
+	 * @param packageName
+	 * @return
+	 */
+	private List<String> getModels(String packageName) {
+		List<String> modelList = new ArrayList<>();
 		try {
+			String modelPackage = packageName.substring(0, packageName.lastIndexOf("."));
+			getLog().info("Getting model from package=" + modelPackage);
+			String packageDirName =modelPackage.replace(".", "/");
+
 			ClassLoader clazzLoader = this.getClassLoader(project);
-			Class clazz = this.loadClass(clazzLoader, modelClass);
-			cmd.setModel(clazz.getName());
-			cmd.setBasePath(getModuleSourcePath(project));
-			parseModelClass(clazz, cmd);
-		}catch(Exception exc) {
-			throw new MojoExecutionException("Exception raised when parsing model class:", exc);
-		}
+			Enumeration<URL> dirs = clazzLoader.getResources(packageDirName);
+			while (dirs.hasMoreElements()) {
+				String path = dirs.nextElement().getPath();
+				getLog().info("Getting model from dir=" + path);
+				File dir = new File(path);
+				File[] files = dir.listFiles(new FileFilter() {
+					@Override
+					public boolean accept(File pathname) {
+						return pathname.getName().endsWith(".class");
+					}
+				});
 
-		try{
-			getLog().info("*************************************************");
-			getLog().info("Project Directory=" + cmd.getBasePath());
-			getLog().info("Model Name=" + cmd.getModel());
-			getLog().info("Entity Name=" + cmd.getEntity());
-			getLog().info("*************************************************");
-
-			this.generator(cmd);
+				if (files.length > 0) {
+					String fileName;
+					for (File file : files) {
+						fileName = file.getName();
+						modelList.add(modelPackage + "." + fileName.substring(0, fileName.indexOf(".")));
+					}
+				}
+			}
 		}catch(Exception exc){
-			throw new MojoExecutionException("Exception raised when generating code:", exc);
+			exc.printStackTrace();
 		}
+
+		return modelList;
 	}
 
 	/**
@@ -77,7 +135,6 @@ public abstract class AbstractGenerator extends AbstractMojo {
 		}
 		Entity entityAnnotation = (Entity)clazz.getAnnotation(Entity.class);
 		cmd.setEntity(entityAnnotation.name());
-
 
 		if(! clazz.isAnnotationPresent(Table.class)) {
 			throw new Exception("Model class misses Table annotation.");
@@ -187,11 +244,9 @@ public abstract class AbstractGenerator extends AbstractMojo {
 			FieldMetaData metaData = new FieldMetaData();
 
 			metaData.setName(field.getName());
-			metaData.setColumnDefinition(column.columnDefinition());
+			metaData.setColumnDefinition(column.type());
 			metaData.setColumnName(column.name());
 			metaData.setJavaType(field.getType().getName());
-			metaData.setLength(column.length());
-			metaData.setPrecious(column.precision());
 
 			return metaData;
 		}
@@ -264,7 +319,7 @@ public abstract class AbstractGenerator extends AbstractMojo {
 			}
 			return new URLClassLoader( urls, this.getClass().getClassLoader() );
 		}catch ( Exception e ){
-			e.printStackTrace();
+		getLog().error("Exception raised when getting classLoader。", e);
 			return this.getClass().getClassLoader();
 		}
 	}

@@ -1,6 +1,6 @@
 package com.fasterapp.modules.sequence.models;
 
-import com.fasterapp.base.arch.model.BaseModel;
+import com.fasterapp.base.core.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 

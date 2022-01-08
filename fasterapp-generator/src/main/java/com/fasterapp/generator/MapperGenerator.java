@@ -5,8 +5,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 
 /**
  * @goal generate-mapper
- * @phase generate-sources
- * @requiresDependencyResolution compile
+ * @execute phase=compile
  */
 @Execute(phase = LifecyclePhase.COMPILE)
 public class MapperGenerator extends AbstractGenerator {

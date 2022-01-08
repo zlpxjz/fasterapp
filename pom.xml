@@ -11,6 +11,7 @@
     <modules>
         <module>fasterapp-base</module>
         <module>fasterapp-modules</module>
+        <module>fasteraapp-admin</module>
         <!--<module>fasterapp-generator</module>-->
     </modules>
 

@@ -1,11 +1,11 @@
-package ${basePackage}.dtos.convertors;
+package ${basePackage}.dto.convertor;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
 
-import ${basePackage}.models.${entity?cap_first}Model;
-import ${basePackage}.dtos.${entity?cap_first}Dto;
+import ${basePackage}.model.${entity?cap_first}Model;
+import ${basePackage}.dto.${entity?cap_first}Dto;
 
 @Mapper
 public interface ${entity?cap_first}Convertor {

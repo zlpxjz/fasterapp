@@ -5,8 +5,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 
 /**
  * @goal generate-full
- * @phase generate-sources
- * @requiresDependencyResolution compile
+ * @execute phase=compile
  */
 @Execute(phase = LifecyclePhase.COMPILE)
 public class FullGenerator extends AbstractGenerator {
@@ -19,5 +18,4 @@ public class FullGenerator extends AbstractGenerator {
 	protected void generator(ClassMetaData cmd) throws Exception{
 		TemplateEnginee.generate(cmd);
 	}
-
 }

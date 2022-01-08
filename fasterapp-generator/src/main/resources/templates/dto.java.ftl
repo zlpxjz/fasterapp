@@ -1,7 +1,6 @@
-package ${basePackage}.dtos;
+package ${basePackage}.dto;
 
 import lombok.Data;
-
 
 @Data
 public class ${entity?cap_first}Dto {

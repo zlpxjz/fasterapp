@@ -1,12 +1,12 @@
-package ${basePackage}.services.impl;
+package ${basePackage}.service.impl;
 
 <#if pkFieldImport?exists>
 import ${pkFieldImport};
 </#if>
-import ${basePackage}.models.${entity?cap_first}Model;
-import ${basePackage}.mappers.${entity?cap_first}Mapper;
-import ${basePackage}.services.I${entity?cap_first}Service;
-import com.fasterapp.base.arch.service.BaseServiceImpl;
+import ${basePackage}.model.${entity?cap_first}Model;
+import ${basePackage}.mapper.${entity?cap_first}Mapper;
+import ${basePackage}.service.I${entity?cap_first}Service;
+import com.fasterapp.base.core.service.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -13,8 +13,8 @@ public class TemplateEnginee {
         String[] templates = new String[]{"api.java.ftl","dto.java.ftl","convertor.java.ftl","mapper.java.ftl","service.java.ftl","serviceImpl.java.ftl","mapper.xml.ftl","script.sql.ftl"};
         String[] fileNames = new String[]{
             "api"+File.separator+"{0}Api.java",
-            "dtos"+File.separator+"{0}Dto.java",
-            "dtos"+File.separator+"convertors"+File.separator+"{0}Convertor.java",
+            "dto"+File.separator+"{0}Dto.java",
+            "dto"+File.separator+"convertor"+File.separator+"{0}Convertor.java",
             "mapper"+File.separator+"{0}Mapper.java",
             "service"+File.separator+"I{0}Service.java",
             "service"+File.separator+"impl"+File.separator+"{0}ServiceImpl.java",

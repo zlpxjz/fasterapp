@@ -1,6 +1,6 @@
 package com.fasterapp.modules.excel.services.impl;
 
-import com.fasterapp.base.arch.ApiResponse;
+import com.fasterapp.base.core.api.ApiResponse;
 import com.fasterapp.base.utils.ApiUtil;
 import com.fasterapp.base.utils.StringUtil;
 import com.fasterapp.modules.excel.services.IExcelExportProcess;

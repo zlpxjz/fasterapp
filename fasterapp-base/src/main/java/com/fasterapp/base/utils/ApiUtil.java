@@ -1,7 +1,7 @@
 package com.fasterapp.base.utils;
 
-import com.fasterapp.base.AppException;
-import com.fasterapp.base.arch.ApiResponse;
+import com.fasterapp.base.exceptions.AppException;
+import com.fasterapp.base.core.api.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

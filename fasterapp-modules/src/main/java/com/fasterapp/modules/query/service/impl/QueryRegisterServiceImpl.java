@@ -1,6 +1,6 @@
 package com.fasterapp.modules.query.service.impl;
 
-import com.fasterapp.base.AppException;
+import com.fasterapp.base.exceptions.AppException;
 import com.fasterapp.modules.query.mapper.MapperMetaData;
 import com.fasterapp.modules.query.service.IQueryRegisterService;
 import org.springframework.stereotype.Service;
