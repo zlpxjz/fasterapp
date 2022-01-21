@@ -1,9 +1,8 @@
 package com.fasterapp.generator;
 
 import com.fasterapp.generator.annotations.Column;
-import com.fasterapp.generator.annotations.Entity;
-import com.fasterapp.generator.annotations.Id;
-import com.fasterapp.generator.annotations.Table;
+import com.fasterapp.generator.annotations.Model;
+import com.fasterapp.generator.annotations.Transient;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -77,7 +76,7 @@ public abstract class AbstractGenerator extends AbstractMojo {
 
 			try {
 				Class clazz = this.loadClass(clazzLoader, modelClass);
-				if(! clazz.isAnnotationPresent(Entity.class)) {
+				if(! clazz.isAnnotationPresent(Model.class)) {
 					continue;
 				}
 
@@ -93,7 +92,7 @@ public abstract class AbstractGenerator extends AbstractMojo {
 				getLog().info("*************************************************");
 				getLog().info("Project Directory=" + cmd.getBasePath());
 				getLog().info("Model Name=" + cmd.getModel());
-				getLog().info("Entity Name=" + cmd.getEntity());
+				getLog().info("Model Name=" + cmd.getEntity());
 				getLog().info("*************************************************");
 
 				this.generator(cmd);
@@ -151,17 +150,12 @@ public abstract class AbstractGenerator extends AbstractMojo {
 	 * @throws Exception
 	 */
 	protected void parseModelClass(Class clazz, ClassMetaData cmd) throws Exception{
-		if(! clazz.isAnnotationPresent(Entity.class)) {
-			throw new Exception("Model class misses Entity annotation.");
+		if(! clazz.isAnnotationPresent(Model.class)) {
+			throw new Exception("Model class misses Model annotation.");
 		}
-		Entity entityAnnotation = (Entity)clazz.getAnnotation(Entity.class);
-		cmd.setEntity(entityAnnotation.name());
-
-		if(! clazz.isAnnotationPresent(Table.class)) {
-			throw new Exception("Model class misses Table annotation.");
-		}
-		Table tableAnnotation = (Table)clazz.getAnnotation(Table.class);
-		cmd.setTable(tableAnnotation.name());
+		Model modelAnnotation = (Model)clazz.getAnnotation(Model.class);
+		cmd.setEntity(modelAnnotation.name());
+		cmd.setTable(modelAnnotation.table());
 
 		String sPackage = clazz.getPackage().getName();
 		cmd.setBasePackage(sPackage.substring(0, sPackage.lastIndexOf(".")));
@@ -238,15 +232,24 @@ public abstract class AbstractGenerator extends AbstractMojo {
 		List<FieldMetaData> fieldMetaDataList = new ArrayList<>();
 
 		for(Field field : fields){
-			if(field.isAnnotationPresent(Id.class)){
-				fieldMetaDataList.addAll(getKeyFields(cmd, field));
-			}else {
+			if(field.isAnnotationPresent(Transient.class)) continue;
+
+			Column column = field.getAnnotation(Column.class);
+			if(column == null){
 				FieldMetaData metaData = this.getFieldMetaData(field);
+				if(metaData != null) {
+					fieldMetaDataList.add(metaData);
+				}
+			}else if(column.key()){
+				fieldMetaDataList.addAll(getKeyFields(cmd, field));
+			}else{
+				FieldMetaData metaData = this.getFieldMetaData(field, column);
 				if(metaData != null) {
 					fieldMetaDataList.add(metaData);
 				}
 			}
 		}
+
 		return fieldMetaDataList;
 	}
 
@@ -257,20 +260,61 @@ public abstract class AbstractGenerator extends AbstractMojo {
 	 * @throws Exception
 	 */
 	private FieldMetaData getFieldMetaData(Field field) throws Exception{
-		Column column = field.getAnnotation(Column.class);
-		if(column == null){
-			getLog().warn("Field=" + field.getName() + " has no column annotation");
-			return null;
-		}else {
-			FieldMetaData metaData = new FieldMetaData();
+		FieldMetaData metaData = new FieldMetaData();
 
-			metaData.setName(field.getName());
-			metaData.setColumnDefinition(column.type());
-			metaData.setColumnName(column.name());
-			metaData.setJavaType(field.getType().getName());
+		metaData.setName(field.getName());
+		//metaData.setColumnDefinition(column.type());
+		metaData.setColumnName(underscoreName(metaData.getName()));
+		metaData.setJavaType(field.getType().getName());
 
-			return metaData;
+		return metaData;
+	}
+
+	/**
+	 * 小驼峰方式转数据库字段
+	 * @param name
+	 * @return
+	 */
+	protected String underscoreName(String name) {
+		if (name == null || name.trim().equals("")) {
+			return "";
+		} else {
+			StringBuilder result = new StringBuilder();
+			result.append(this.lowerCaseName(name.substring(0, 1)));
+
+			for(int i = 1; i < name.length(); ++i) {
+				String s = name.substring(i, i + 1);
+				String slc = this.lowerCaseName(s);
+				if (!s.equals(slc)) {
+					result.append("_").append(slc);
+				} else {
+					result.append(s);
+				}
+			}
+
+			return result.toString();
 		}
+	}
+
+	protected String lowerCaseName(String name) {
+		return name.toLowerCase(Locale.US);
+	}
+
+	/**
+	 *
+	 * @param field
+	 * @return
+	 * @throws Exception
+	 */
+	private FieldMetaData getFieldMetaData(Field field, Column column) throws Exception{
+		FieldMetaData metaData = new FieldMetaData();
+
+		metaData.setName(field.getName());
+		metaData.setColumnDefinition(column.type());
+		metaData.setColumnName(column.name());
+		metaData.setJavaType(field.getType().getName());
+
+		return metaData;
 	}
 
 	/**

@@ -1,16 +1,14 @@
 package com.fasterapp.admin.model;
 
 import com.fasterapp.generator.annotations.Column;
-import com.fasterapp.generator.annotations.Entity;
-import com.fasterapp.generator.annotations.Table;
+import com.fasterapp.generator.annotations.Model;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Created by Tony on 2021/12/17.
  */
-@Entity(name="OrganizationLevel")
-@Table(name="T_SYS_ORG_LEVEL_INFO")
+@Model(name="OrganizationLevel")
 @Getter
 @Setter
 public class OrganizationLevelModel {

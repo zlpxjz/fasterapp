@@ -12,6 +12,18 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Column {
 	/**
+	 * 是否关键字
+	 * @return
+	 */
+	boolean key() default false;
+
+	/**
+	 * 是否外键
+ 	 * @return
+	 */
+	boolean foreign() default false;
+
+	/**
 	 * 字段名
 	 * @return
 	 */

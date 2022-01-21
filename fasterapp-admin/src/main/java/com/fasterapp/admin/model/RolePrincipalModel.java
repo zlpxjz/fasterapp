@@ -2,14 +2,12 @@ package com.fasterapp.admin.model;
 
 import com.fasterapp.base.core.model.BaseModel;
 import com.fasterapp.generator.annotations.Column;
-import com.fasterapp.generator.annotations.Entity;
-import com.fasterapp.generator.annotations.Table;
+import com.fasterapp.generator.annotations.Model;
 
 /**
  * Created by Tony on 2021/12/17.
  */
-@Table(name="t_sys_role_principal_info")
-@Entity(name="RolePrincipal")
+@Model(name="RolePrincipal")
 public class RolePrincipalModel extends BaseModel<String> {
 	@Column(name="principal_id", type="varchar(32)", comment="主体ID")
 	private String principalId;

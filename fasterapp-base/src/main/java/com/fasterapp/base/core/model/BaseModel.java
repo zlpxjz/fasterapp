@@ -1,7 +1,6 @@
 package com.fasterapp.base.core.model;
 
 import com.fasterapp.generator.annotations.Column;
-import com.fasterapp.generator.annotations.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +18,6 @@ import java.sql.Timestamp;
 public class BaseModel<K extends Serializable>  implements Serializable {
 	private boolean _insert = false;
 
-	@Id
 	@Getter
 	@Setter
 	private K id;

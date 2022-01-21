@@ -2,15 +2,13 @@ package com.fasterapp.admin.model;
 
 import com.fasterapp.base.core.model.BaseModel;
 import com.fasterapp.generator.annotations.Column;
-import com.fasterapp.generator.annotations.Entity;
-import com.fasterapp.generator.annotations.Table;
+import com.fasterapp.generator.annotations.Model;
 
 
 /**
  * Created by Tony on 2021/12/17.
  */
-@Table(name="t_sys_account_info")
-@Entity(name="Account")
+@Model(name="Account")
 public class AccountModel extends BaseModel<String> {
 	@Column(name="name", type="varchar(32)", comment="账号")
 	private  String userName;

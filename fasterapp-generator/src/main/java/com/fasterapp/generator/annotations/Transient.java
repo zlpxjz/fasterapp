@@ -6,10 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by Tony on 2022/1/6.
+ * Created by Tony on 2022/1/21.
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Table {
-	String name();
+public @interface Transient {
 }

@@ -6,9 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by Tony on 2022/1/6.
+ * Created by Tony on 2021/11/1.
  */
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Id {
+public @interface Model {
+	String name();
+
+	String table();
 }
