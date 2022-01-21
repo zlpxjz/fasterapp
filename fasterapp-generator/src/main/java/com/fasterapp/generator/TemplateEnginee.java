@@ -20,8 +20,8 @@ public class TemplateEnginee {
             "service"+File.separator+"impl"+File.separator+"{0}ServiceImpl.java",
             "mapper"+File.separator+"{0}Mapper.xml",
             "scripts"+File.separator+"{0}.sql"};
-        //通过Freemarker的Configuration读取相应的ftl
-        Configuration configuration = new Configuration();//这里是对应的你使用jar包的版本号：<version>2.3.23</version>
+        //通过Freemarker的Configuration读取相应的ftl，这里是对应的你使用jar包的版本号：<version>2.3.23</version>
+        Configuration configuration = new Configuration();
 
         //第二个参数 为你对应存放.ftl文件的包名
         configuration.setClassForTemplateLoading(TemplateEnginee.class, "/templates");

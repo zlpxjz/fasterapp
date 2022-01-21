@@ -1,10 +1,9 @@
 package com.fasterapp.generator;
 
-import com.fasterapp.base.core.model.BaseModel;
-import com.fasterapp.base.core.model.annotations.Column;
-import com.fasterapp.base.core.model.annotations.Entity;
-import com.fasterapp.base.core.model.annotations.Id;
-import com.fasterapp.base.core.model.annotations.Table;
+import com.fasterapp.generator.annotations.Column;
+import com.fasterapp.generator.annotations.Entity;
+import com.fasterapp.generator.annotations.Id;
+import com.fasterapp.generator.annotations.Table;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -36,6 +35,27 @@ public abstract class AbstractGenerator extends AbstractMojo {
 	 */
 	private String models;
 
+	/**
+	 * @parameter expression="${servicePath}"
+	 * @required
+	 * @readonly
+	 */
+	private String servicePath;
+
+	/**
+	 * @parameter expression="${mapperPath}"
+	 * @required
+	 * @readonly
+	 */
+	private String mapperPath;
+
+	/**
+	 * @parameter expression="${mapperXmlPath}"
+	 * @required
+	 * @readonly
+	 */
+	private String mapperXmlPath;
+
 	@Override
 	public void  execute()  throws MojoExecutionException,MojoFailureException {
 		ClassMetaData cmd = new ClassMetaData();
@@ -57,9 +77,10 @@ public abstract class AbstractGenerator extends AbstractMojo {
 
 			try {
 				Class clazz = this.loadClass(clazzLoader, modelClass);
-				if(! BaseModel.class.isAssignableFrom(clazz)){
+				if(! clazz.isAnnotationPresent(Entity.class)) {
 					continue;
 				}
+
 				cmd.setModel(clazz.getName());
 				cmd.setBasePath(getModuleSourcePath(project));
 				parseModelClass(clazz, cmd);

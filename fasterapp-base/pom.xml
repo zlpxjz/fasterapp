@@ -12,4 +12,5 @@
     <artifactId>fasterapp-base</artifactId>
     <packaging>jar</packaging>
     <name>fasterapp-base</name>
+
 </project>

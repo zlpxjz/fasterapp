@@ -1,15 +1,15 @@
 package com.fasterapp.admin.model;
 
 import com.fasterapp.base.core.model.BaseModel;
-import com.fasterapp.base.core.model.annotations.Column;
-import com.fasterapp.base.core.model.annotations.Entity;
-import com.fasterapp.base.core.model.annotations.Table;
+import com.fasterapp.generator.annotations.Entity;
+import com.fasterapp.generator.annotations.Table;
+import com.fasterapp.generator.annotations.Column;
 
 /**
  * Created by Tony on 2021/12/17.
  */
-@Table(name="t_sys_permssion_info")
 @Entity(name="Permission")
+@Table(name="t_sys_permssion_info")
 public class PermissionModel extends BaseModel<String> {
 	@Column(name="parent_code", type="varchar(32)", comment="上级权限编码")
 	private String  parentCode;

@@ -1,4 +1,4 @@
-package com.fasterapp.base.core.model.annotations;
+package com.fasterapp.generator.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

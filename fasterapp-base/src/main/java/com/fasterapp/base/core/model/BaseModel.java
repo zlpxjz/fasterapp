@@ -1,7 +1,7 @@
 package com.fasterapp.base.core.model;
 
-import com.fasterapp.base.core.model.annotations.Column;
-import com.fasterapp.base.core.model.annotations.Id;
+import com.fasterapp.generator.annotations.Column;
+import com.fasterapp.generator.annotations.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

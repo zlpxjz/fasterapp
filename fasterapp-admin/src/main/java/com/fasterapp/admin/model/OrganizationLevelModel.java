@@ -1,26 +1,28 @@
 package com.fasterapp.admin.model;
 
+import com.fasterapp.generator.annotations.Column;
+import com.fasterapp.generator.annotations.Entity;
+import com.fasterapp.generator.annotations.Table;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * Created by Tony on 2021/12/17.
  */
-@Entity
+@Entity(name="OrganizationLevel")
 @Table(name="T_SYS_ORG_LEVEL_INFO")
 @Getter
 @Setter
 public class OrganizationLevelModel {
-	@Column(name="parent_id", columnDefinition = "VARCHAR(64) COMMENT '序列名称'")
+	@Column(name="parent_id", type="varchar(64)", comment="上级组织ID")
 	private String parentId;
-	@Column(name="name", columnDefinition = "VARCHAR(64) COMMENT '序列名称'")
+
+	@Column(name="name", type="varchar(64)", comment="组织名称")
 	private String name;
-	@Column(name="level", columnDefinition = "VARCHAR(64) COMMENT '序列名称'")
+
+	@Column(name="level", type="varchar(64)", comment="组织层级")
 	private String level;
-	@Column(name="status", columnDefinition = "VARCHAR(64) COMMENT '序列名称'")
+
+	@Column(name="status", type="char(1)", comment="组织状态")
 	private String status;
 }

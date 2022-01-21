@@ -1,4 +1,4 @@
-package com.fasterapp.base.core.model.annotations;
+package com.fasterapp.generator.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,10 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by Tony on 2021/11/1.
+ * Created by Tony on 2022/1/6.
  */
-@Target({ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Entity {
-	String name();
+public @interface Id {
 }

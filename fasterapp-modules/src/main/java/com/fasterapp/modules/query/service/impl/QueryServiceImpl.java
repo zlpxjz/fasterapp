@@ -41,11 +41,11 @@ public class QueryServiceImpl implements IQueryService {
         String code = parameter.getQueryCode();
         MapperMetaData metaData = getMapperMetaData(code);
 
-        //查询预处理
         Map<String, Object> parameters = parameter.getParameters();
 
         IQueryProcessor queryProcessor = metaData.getQueryProcessor();
         if(queryProcessor != null){
+            //查询预处理
             queryProcessor.processParameters(parameters);
         }
 
@@ -54,7 +54,7 @@ public class QueryServiceImpl implements IQueryService {
             PageHelper.startPage(pageIndex, pageSize);
         }
 
-        List list = mapper.select(metaData, parameter.getParameters());
+        List list = mapper.select(metaData, parameters);
         if(queryProcessor != null){
             //查询结果处理
             queryProcessor.processResult(parameter, list);
@@ -78,7 +78,6 @@ public class QueryServiceImpl implements IQueryService {
             }
 
             parameter = queryParameter.getParameters();
-
             IQueryProcessor queryProcessor = metaData.getQueryProcessor();
             if(queryProcessor != null){
                 queryProcessor.processParameters(parameter);
