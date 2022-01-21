@@ -44,7 +44,7 @@ public class FieldMetaData implements Serializable {
     }
 
     public String getJdbcType() {
-        String definition = this.columnDefinition.trim();
+        String definition = getColumnDefinition().trim();
         String type = definition.split(" ")[0];
         type = type.split("[(]")[0].toUpperCase();
         if(type.equalsIgnoreCase("INT")){
@@ -90,7 +90,20 @@ public class FieldMetaData implements Serializable {
     }
 
     public String getColumnDefinition() {
-        return columnDefinition;
+        if(columnDefinition == null || columnDefinition.trim().equals("")) {
+            String javaType = getConciseJavaType();
+            if("Integer".equalsIgnoreCase(javaType)){
+                return "INTEGER(11)";
+            }else if("Date".equalsIgnoreCase(javaType)){
+                return "DATE";
+            }else if("timestamp".equalsIgnoreCase(javaType)){
+                return "TIMESTAMP";
+            }else{
+                return "VARCHAR(32)";
+            }
+        }else {
+            return columnDefinition;
+        }
     }
 
     public void setColumnDefinition(String columnDefinition) {

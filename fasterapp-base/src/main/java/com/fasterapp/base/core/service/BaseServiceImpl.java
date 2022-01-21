@@ -5,6 +5,7 @@ import com.fasterapp.base.core.model.BaseModel;
 import com.fasterapp.base.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +20,7 @@ public class BaseServiceImpl<K extends Serializable, E extends BaseModel, M exte
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void save(E model) throws Exception {
 		if(log.isDebugEnabled()){
 			log.debug("Model={}", JsonUtil.toString(model));
@@ -32,6 +34,7 @@ public class BaseServiceImpl<K extends Serializable, E extends BaseModel, M exte
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void updateSelective(Map model) throws Exception {
 		if(log.isDebugEnabled()){
 			log.debug("Model={}", JsonUtil.toString(model));
@@ -54,6 +57,7 @@ public class BaseServiceImpl<K extends Serializable, E extends BaseModel, M exte
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(K key) throws Exception {
 		if(log.isDebugEnabled()){
 			log.debug("Key={}", JsonUtil.toString(key));
@@ -63,6 +67,7 @@ public class BaseServiceImpl<K extends Serializable, E extends BaseModel, M exte
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(List<K> keys) throws Exception {
 		if(log.isDebugEnabled()){
 			log.debug("Keys={}", JsonUtil.toString(keys));

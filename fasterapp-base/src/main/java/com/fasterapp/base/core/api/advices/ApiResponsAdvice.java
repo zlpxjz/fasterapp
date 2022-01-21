@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import javax.persistence.OptimisticLockException;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -89,10 +88,10 @@ public class ApiResponsAdvice implements ResponseBodyAdvice<Object> {
 	 * @param e
 	 * @return
 	 */
-	@ExceptionHandler(OptimisticLockException.class)
+	/*@ExceptionHandler(OptimisticLockException.class)
 	public ApiResponse handleOptimisticLockException(OptimisticLockException e) {
 		return ApiResponse.error("数据并发操作异常，请稍后再提交。");
-	}
+	}*/
 
 	/**
 	 * find root exception throwable.

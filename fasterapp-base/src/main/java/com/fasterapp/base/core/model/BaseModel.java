@@ -20,6 +20,7 @@ public class BaseModel<K extends Serializable>  implements Serializable {
 
 	@Getter
 	@Setter
+	@Column(name = "id" , key = true, comment = "关键字")
 	private K id;
 
 	@JsonIgnore

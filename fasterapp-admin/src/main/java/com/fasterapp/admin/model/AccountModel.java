@@ -8,7 +8,7 @@ import com.fasterapp.generator.annotations.Model;
 /**
  * Created by Tony on 2021/12/17.
  */
-@Model(name="Account")
+@Model(name="Account", table="t_account_info")
 public class AccountModel extends BaseModel<String> {
 	@Column(name="name", type="varchar(32)", comment="账号")
 	private  String userName;

@@ -7,7 +7,7 @@ import com.fasterapp.generator.annotations.Model;
 /**
  * Created by Tony on 2021/12/17.
  */
-@Model(name="RolePermission")
+@Model(name="RolePermission", table="t_role_permission_info")
 public class RolePermissionModel extends BaseModel<String> {
 	@Column(name="role_id", type="varchar(32)", comment="角色")
 	private  String roleId;

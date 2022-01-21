@@ -8,7 +8,7 @@ import lombok.Setter;
 /**
  * Created by Tony on 2021/12/17.
  */
-@Model(name="OrganizationLevel")
+@Model(name="OrganizationLevel", table="t_organization_level_info")
 @Getter
 @Setter
 public class OrganizationLevelModel {

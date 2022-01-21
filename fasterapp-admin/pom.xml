@@ -44,7 +44,7 @@
                 </executions>
 
                 <configuration>
-                    <models>com.fasterapp.admin.model.PermissionModell</models>
+                    <models>com.fasterapp.admin.model.PermissionModel</models>
                 </configuration>
             </plugin>
         </plugins>

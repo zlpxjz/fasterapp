@@ -7,7 +7,7 @@ import com.fasterapp.generator.annotations.Column;
 /**
  * Created by Tony on 2021/12/17.
  */
-@Model(name="Permission")
+@Model(name="Permission", table="t_permission_info")
 public class PermissionModel extends BaseModel<String> {
 	@Column(name="parent_code", type="varchar(32)", comment="上级权限编码")
 	private String  parentCode;

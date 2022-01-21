@@ -63,5 +63,5 @@ public @interface Column {
 	 *
 	 * @return
 	 */
-	String type();
+	String type() default "";
 }

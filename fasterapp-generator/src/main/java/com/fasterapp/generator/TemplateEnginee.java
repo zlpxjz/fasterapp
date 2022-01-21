@@ -10,9 +10,8 @@ import java.text.MessageFormat;
 
 public class TemplateEnginee {
     public static void generate(ClassMetaData classMetaData) throws Exception{
-        String[] templates = new String[]{"api.java.ftl","dto.java.ftl","convertor.java.ftl","mapper.java.ftl","service.java.ftl","serviceImpl.java.ftl","mapper.xml.ftl","script.sql.ftl"};
+        String[] templates = new String[]{"dto.java.ftl","convertor.java.ftl","mapper.java.ftl","service.java.ftl","serviceImpl.java.ftl","mapper.xml.ftl","script.sql.ftl"};
         String[] fileNames = new String[]{
-            "api"+File.separator+"{0}Api.java",
             "dto"+File.separator+"{0}Dto.java",
             "dto"+File.separator+"convertor"+File.separator+"{0}Convertor.java",
             "mapper"+File.separator+"{0}Mapper.java",

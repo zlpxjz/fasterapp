@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service("${entity?cap_first}Service")
-@Transactional(rollbackFor = Exception.class)
 public class ${entity?cap_first}ServiceImpl extends BaseServiceImpl<${pkType}, ${entity?cap_first}Model, ${entity?cap_first}Mapper> implements I${entity?cap_first}Service {
 
 }

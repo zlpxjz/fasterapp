@@ -34,27 +34,6 @@ public abstract class AbstractGenerator extends AbstractMojo {
 	 */
 	private String models;
 
-	/**
-	 * @parameter expression="${servicePath}"
-	 * @required
-	 * @readonly
-	 */
-	private String servicePath;
-
-	/**
-	 * @parameter expression="${mapperPath}"
-	 * @required
-	 * @readonly
-	 */
-	private String mapperPath;
-
-	/**
-	 * @parameter expression="${mapperXmlPath}"
-	 * @required
-	 * @readonly
-	 */
-	private String mapperXmlPath;
-
 	@Override
 	public void  execute()  throws MojoExecutionException,MojoFailureException {
 		ClassMetaData cmd = new ClassMetaData();
@@ -254,7 +233,7 @@ public abstract class AbstractGenerator extends AbstractMojo {
 	}
 
 	/**
-	 *
+	 * 根据变量转数据库定义
 	 * @param field
 	 * @return
 	 * @throws Exception
